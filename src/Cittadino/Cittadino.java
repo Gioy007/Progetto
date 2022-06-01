@@ -83,6 +83,8 @@ public class Cittadino {
 		springLayout.putConstraint(SpringLayout.EAST, btnNewButton_1, 0, SpringLayout.EAST, comboBox);
 		btnNewButton_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				Login l=new Login();
+				l.setVisible(true);
 			}
 		});
 		frame.getContentPane().add(btnNewButton_1);
@@ -92,6 +94,8 @@ public class Cittadino {
 		springLayout.putConstraint(SpringLayout.EAST, btnNewButton_2, 0, SpringLayout.EAST, lblNewLabel);
 		btnNewButton_2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				Registrati r=new Registrati();
+				r.setVisible(true);
 			}
 		});
 		frame.getContentPane().add(btnNewButton_2);
