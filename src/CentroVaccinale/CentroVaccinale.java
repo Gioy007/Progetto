@@ -32,7 +32,7 @@ public class CentroVaccinale {
 	public CentroVaccinale() {
 		initialize();
 	}
-	//vdflhgdfldfògdf
+	//vdflhgdfldfògdffghfgh
 
 	/**
 	 * Initialize the contents of the frame.
