@@ -106,7 +106,7 @@ public class Login extends JFrame {
 		            conn.close();
 		            
 		            if(!rs.equals("")) {
-		            	//TODO 
+		            	//TODO dfhkgdfklghdfo
 		            }
 		            else {
 		            	JOptionPane.showMessageDialog(null, "Email o password non corrette");
