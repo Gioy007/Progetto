@@ -11,6 +11,9 @@ public class CentroVaccinale {
 	 * Launch the application.
 	 */
 	public static void main(String[] args) {
+		
+		System.out.print("bella");	
+		
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
