@@ -7,19 +7,25 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.SpringLayout;
 import java.awt.Font;
 import javax.swing.JTextField;
 import javax.swing.JPasswordField;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.awt.event.ActionEvent;
 
 public class Login extends JFrame {
 
 	private JPanel login;
-	private JPasswordField passwordField;
-	private JTextField textField;
+	private JPasswordField jpsw;
+	private JTextField jemail;
 
 	/**
 	 * Launch the application.
@@ -67,22 +73,48 @@ public class Login extends JFrame {
 		sl_login.putConstraint(SpringLayout.SOUTH, lblNewLabel_2, -140, SpringLayout.SOUTH, login);
 		login.add(lblNewLabel_2);
 		
-		passwordField = new JPasswordField();
-		sl_login.putConstraint(SpringLayout.NORTH, passwordField, -3, SpringLayout.NORTH, lblNewLabel_2);
-		sl_login.putConstraint(SpringLayout.WEST, passwordField, 49, SpringLayout.EAST, lblNewLabel_2);
-		sl_login.putConstraint(SpringLayout.EAST, passwordField, -18, SpringLayout.EAST, login);
-		login.add(passwordField);
+		jpsw = new JPasswordField();
+		sl_login.putConstraint(SpringLayout.NORTH, jpsw, -3, SpringLayout.NORTH, lblNewLabel_2);
+		sl_login.putConstraint(SpringLayout.WEST, jpsw, 49, SpringLayout.EAST, lblNewLabel_2);
+		sl_login.putConstraint(SpringLayout.EAST, jpsw, -18, SpringLayout.EAST, login);
+		login.add(jpsw);
 		
-		textField = new JTextField();
-		sl_login.putConstraint(SpringLayout.WEST, textField, 72, SpringLayout.EAST, lblNewLabel_1);
-		sl_login.putConstraint(SpringLayout.SOUTH, textField, -12, SpringLayout.NORTH, passwordField);
-		sl_login.putConstraint(SpringLayout.EAST, textField, 0, SpringLayout.EAST, passwordField);
-		login.add(textField);
-		textField.setColumns(10);
+		jemail = new JTextField();
+		sl_login.putConstraint(SpringLayout.WEST, jemail, 72, SpringLayout.EAST, lblNewLabel_1);
+		sl_login.putConstraint(SpringLayout.SOUTH, jemail, -12, SpringLayout.NORTH, jpsw);
+		sl_login.putConstraint(SpringLayout.EAST, jemail, 0, SpringLayout.EAST, jpsw);
+		login.add(jemail);
+		jemail.setColumns(10);
 		
 		JButton btnNewButton = new JButton("Login");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				String email= jemail.getText();
+				String jpsw=jemail.getText();
+				
+				String url = "jdbc:postgresql://localhost:5432/CentriVaccinali";
+		        String username = "eclipse";
+		        String password = "1234";
+
+		        try {
+		        	
+		            Connection conn = DriverManager.getConnection(url, username, password);
+		            Statement stmt = conn.createStatement();
+		            
+		            ResultSet rs = stmt.executeQuery(""
+		            		+ "SELECT * FROM utenti WHERE email='"+email+"' and password='"+password+"'");
+		            conn.close();
+		            
+		            if(!rs.equals("")) {
+		            	//TODO 
+		            }
+		            else {
+		            	JOptionPane.showMessageDialog(null, "Email o password non corrette");
+		            }
+		            
+		        } catch (SQLException ex) {
+		            JOptionPane.showMessageDialog(null, ex);
+		        }
 			}
 		});
 		sl_login.putConstraint(SpringLayout.SOUTH, btnNewButton, -10, SpringLayout.SOUTH, login);

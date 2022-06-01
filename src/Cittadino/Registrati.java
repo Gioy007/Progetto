@@ -55,29 +55,24 @@ public class Registrati extends JFrame {
 	}
 
 	
-	private boolean registraCittadino(String nome,String cognome,String cf,String email,String psw) {
-		boolean fatto=false;
+	private boolean registraCittadino(String nome,String cognome,String cf,String email,String psw) throws SQLException {
 		
 		String url = "jdbc:postgresql://localhost:5432/CentriVaccinali";
         String username = "eclipse";
         String password = "1234";
 
         try {
+        	
             Connection conn = DriverManager.getConnection(url, username, password);
             Statement stmt = conn.createStatement();
             
             String query = "INSERT INTO utenti (nome, cognome, cf, password, email)"
             			+ "VALUES ('"+nome+"', '"+cognome+"', '"+cf+"', '"+email+"', '"+psw+"');";
 
-            // create the insert prepared statement
-            //PreparedStatement preparedStmt = conn.prepareStatement(query);
-
-
-            // execute the prepared statement
-            //preparedStmt.execute();
             stmt.executeUpdate(query);
             JOptionPane.showMessageDialog(null, "Registrazione avvenuta");
             conn.close();
+            
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, e);
             return false;
@@ -134,7 +129,13 @@ public class Registrati extends JFrame {
 				String rpsw= jrpsw.getText();
 				
 				if(psw.equals(rpsw)&& !psw.equals("")) {
-					registraCittadino(nome, cognome, cf, email, psw);
+					
+					try {
+						registraCittadino(nome, cognome, cf, email, psw);
+					} catch (SQLException e1) {
+						// TODO Auto-generated catch block
+					}
+					
 					setVisible(false);
 					Login l=new Login();
 					l.setVisible(true);
