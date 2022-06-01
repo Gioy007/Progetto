@@ -15,6 +15,11 @@ import javax.swing.LayoutStyle.ComponentPlacement;
 import java.awt.Font;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.awt.event.ActionEvent;
 
 public class Registrati extends JFrame {
@@ -49,9 +54,38 @@ public class Registrati extends JFrame {
 		});
 	}
 
-	/**
-	 * Create the frame.
-	 */
+	
+	private boolean registraCittadino(String nome,String cognome,String cf,String email,String psw) {
+		boolean fatto=false;
+		
+		String url = "jdbc:postgresql://localhost:5432/CentriVaccinali";
+        String username = "eclipse";
+        String password = "1234";
+
+        try {
+            Connection conn = DriverManager.getConnection(url, username, password);
+            Statement stmt = conn.createStatement();
+            
+            String query = "INSERT INTO utenti (nome, cognome, cf, password, email)"
+            			+ "VALUES ('"+nome+"', '"+cognome+"', '"+cf+"', '"+email+"', '"+psw+"');";
+
+            // create the insert prepared statement
+            //PreparedStatement preparedStmt = conn.prepareStatement(query);
+
+
+            // execute the prepared statement
+            //preparedStmt.execute();
+            stmt.executeUpdate(query);
+            JOptionPane.showMessageDialog(null, "Registrazione avvenuta");
+            conn.close();
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, e);
+            return false;
+        }
+		
+		return true;
+	}
+	
 	public Registrati() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 249, 351);
@@ -88,6 +122,7 @@ public class Registrati extends JFrame {
 		lblNewLabel_5 = new JLabel("Password");
 		
 		btnNewButton = new JButton("Registrati");
+		
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
@@ -99,7 +134,7 @@ public class Registrati extends JFrame {
 				String rpsw= jrpsw.getText();
 				
 				if(psw.equals(rpsw)&& !psw.equals("")) {
-					//registraCittadino(nome, cognome, cf, email, psw);
+					registraCittadino(nome, cognome, cf, email, psw);
 					setVisible(false);
 					Login l=new Login();
 					l.setVisible(true);
