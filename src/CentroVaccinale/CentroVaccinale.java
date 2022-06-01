@@ -12,7 +12,7 @@ public class CentroVaccinale {
 	 */
 	public static void main(String[] args) {
 		
-		System.out.print("bella");	
+		System.out.print("bella");	//gjkdfgdfhdf
 		
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
