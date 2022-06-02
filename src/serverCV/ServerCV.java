@@ -4,6 +4,7 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.SQLException;
 import java.sql.Statement;
 
 public class ServerCV {
@@ -14,7 +15,7 @@ public class ServerCV {
 	private static String username = "eclipse";
 	private static String password = "1234";
 	
-	private static ArrayList<ClientHandler> clients = new ArrayList<ClientHandler>;
+//	private static ArrayList<ClientHandler> clients = new ArrayList<ClientHandler>;
 
 	/**
 	 * Launch the application.
@@ -22,17 +23,21 @@ public class ServerCV {
 	public static void main(String[] args) {
 		
 		System.out.println("collegamento al db...");
+		try {
+			Connection conn = DriverManager.getConnection(url, username, password);
+			Statement stmt = conn.createStatement();
 		
-		Connection conn = DriverManager.getConnection(url, username, password);
-        Statement stmt = conn.createStatement();
-		
-		ServerSocket listener = new ServerSocket(PORT);
-		
-		while (true) {
-			Socket client = listener.accept();
-			ClientHandler clientThread = new ClientHandler(client);
-			clients.add(clientThread);
+			
+		}catch(SQLException e) {
+			System.out.print(e);
 		}
+		
+//		ServerSocket listener = new ServerSocket(PORT);
+//		while (true) {
+//			Socket client = listener.accept();
+//			ClientHandler clientThread = new ClientHandler(client);
+//			clients.add(clientThread);
+//		}
 		
 		
 	}
