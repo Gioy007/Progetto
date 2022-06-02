@@ -12,8 +12,6 @@ public class CentroVaccinale {
 	 */
 	public static void main(String[] args) {
 		
-		System.out.print("bella2");	
-		
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
@@ -32,7 +30,6 @@ public class CentroVaccinale {
 	public CentroVaccinale() {
 		initialize();
 	}
-	//vdflhgdfldfògdffghfgh
 
 	/**
 	 * Initialize the contents of the frame.
