@@ -17,6 +17,12 @@ create table CentriVaccinali
 	Tipologia varchar
 );
 
+create table eventi
+(
+	idevento serial primary key,
+	nome varchar
+);
+
 CREATE TABLE Vaccinati
 (
     IDVacc varchar(16) primary key,
@@ -34,9 +40,11 @@ create table EventiAvversi
 (
 	ID serial primary key,
 	IDVacc varchar,
-	Evento varchar,
+	idevento int,
 	Severita int check(severita>0) check(severita<6),
 	Note varchar(256),
 	foreign key (IDVacc)
-		references Vaccinati(IDVacc) on delete no action	
+		references Vaccinati(IDVacc) on delete no action,
+	foreign key (idevento)
+		references eventi(idevento) on delete no action
 );
