@@ -19,17 +19,7 @@ INSERT INTO utenti (nome, cognome, cf, password, email)
 	VALUES ('K', 'K', 'HHHHHG90D17D416C', 'GR90', 'kk@gmail.com');
 INSERT INTO utenti (nome, cognome, cf, password, email) 
 	VALUES ('L', 'L', 'LLLLLG90D17D416C', 'GR90', 'll@gmail.com');
-
---Eventi avversi
-INSERT INTO eventiavversi(idvacc, evento, severita, note)
-	VALUES ('34535433', 'tosse', '3','sdfjksdghkkldfhgldfl');
-INSERT INTO eventiavversi(idvacc, evento, severita, note)
-	VALUES ('12355161', 'mal di testa', '2','hsdfgsdfgsdkfjdslfhsdfsd');
-INSERT INTO eventiavversi(idvacc, evento, severita, note)
-	VALUES ('196056005', 'tachicardia', '4','gdgkjdfhgldfkjldbb');
-INSERT INTO eventiavversi(idvacc, evento, severita, note)
-	VALUES ('10505648194', 'crisi ipertensiva', '5','ghflgflhgdfklhgldfghdf');
-
+	
 --Centri vaccinali
 INSERT INTO centrivaccinali(nome, indirizzo, tipologia)
 	VALUES ('primo', 'erba', 'ospedale');
@@ -38,6 +28,18 @@ INSERT INTO centrivaccinali(nome, indirizzo, tipologia)
 INSERT INTO centrivaccinali(nome, indirizzo, tipologia)
 	VALUES ('terzo', 'varese', 'azienda');
 
---Vaccinati
-INSERT INTO vaccinati(idvacc, userid, datasomm, tipovacc, idcentrovacc)
-	VALUES ('34535433', '1', '19-11-2021', 'Pfizer', '1');
+--Eventi
+INSERT INTO eventi(nome)
+	VALUES ('tosse');
+INSERT INTO eventi(nome)
+	VALUES ('mal di testa');
+INSERT INTO eventi(nome)
+	VALUES ('febbre');
+INSERT INTO eventi(nome)
+	VALUES ('dolori muscolari e articolari');
+INSERT INTO eventi(nome)
+	VALUES ('linfoadenopatia');
+INSERT INTO eventi(nome)
+	VALUES ('tachicardia');
+INSERT INTO eventi(nome)
+	VALUES ('crisi ipertensiva');
