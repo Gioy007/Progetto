@@ -25,6 +25,7 @@ public class ClientHandler implements Runnable{
 	public void run() {
 		try {
 			while(true) {
+				System.out.println("connessione stabilita con un client");
 				String request = in.readLine();
 				String[] requestArray = request.split(";");
 				
