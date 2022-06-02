@@ -13,6 +13,9 @@ public class CentroVaccinale {
 	public static void main(String[] args) {
 		
 		EventQueue.invokeLater(new Runnable() {
+			
+			// hasdjdaskfnkdvjbnskòdvbjsdpvkòjbsdòkv
+			
 			public void run() {
 				try {
 					CentroVaccinale window = new CentroVaccinale();
