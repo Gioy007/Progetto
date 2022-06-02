@@ -12,21 +12,26 @@ public class ServerCV {
 	
 	private static final int PORT = 9090;
 	
+	//dovranno essere di input
 	private static String url = "jdbc:postgresql://localhost:5432/CentriVaccinali";
 	private static String username = "eclipse";
 	private static String password = "1234";
 	
 	private static ArrayList<ClientHandler> clients = new ArrayList<ClientHandler>();
+	
+	private static Connection conn;
 
 	/**
 	 * Launch the application.
 	 */
 	public static void main(String[] args) {
 		
+		//attendo i valori di login al db
+		
 		System.out.println("collegamento al db...");
 		try {
-			Connection conn = DriverManager.getConnection(url, username, password);
-			Statement stmt = conn.createStatement();
+			
+			conn = DriverManager.getConnection(url, username, password);
 		
 			System.out.println("connesso");
 		}catch(SQLException e) {
@@ -49,4 +54,7 @@ public class ServerCV {
 		
 	}
 
+	public static Connection getConn() {
+		return conn;
+	}
 }
