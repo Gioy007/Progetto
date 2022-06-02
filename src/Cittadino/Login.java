@@ -100,13 +100,15 @@ public class Login extends JFrame {
 		        	
 		            Connection conn = DriverManager.getConnection(url, username, password);
 		            Statement stmt = conn.createStatement();
+		            String query="SELECT * FROM utenti WHERE email='"+email+"' and password='"+jpsw+"'";
+		            ResultSet rs = stmt.executeQuery(query);
 		            
-		            ResultSet rs = stmt.executeQuery(""
-		            		+ "SELECT * FROM utenti WHERE email='"+email+"' and password='"+password+"'");
-		            conn.close();
-		            
-		            if(!rs.equals("")) {
-		            	//TODO dfhkgdfklghdfo
+		            if(rs.isBeforeFirst()) {
+		            	rs.next();
+		            	String sintomi=rs.getString("userid");
+		            	setVisible(false);
+		            	Sintomi s=new Sintomi(sintomi);
+		            	s.setVisible(true);
 		            }
 		            else {
 		            	JOptionPane.showMessageDialog(null, "Email o password non corrette");
