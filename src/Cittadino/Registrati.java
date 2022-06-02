@@ -21,21 +21,22 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.awt.event.ActionEvent;
+import javax.swing.SpringLayout;
 
 public class Registrati extends JFrame {
 
 	private JPanel registrati;
-	private JTextField jnome;
-	private JTextField jcognome;
-	private JTextField jcf;
-	private JTextField jemail;
-	private JTextField jpsw;
 	private JLabel lblNewLabel_1;
 	private JLabel lblNewLabel_2;
 	private JLabel lblNewLabel_3;
 	private JLabel lblNewLabel_4;
 	private JLabel lblNewLabel_5;
 	private JButton btnNewButton;
+	private JTextField jnome;
+	private JTextField jcognome;
+	private JTextField jcf;
+	private JTextField jemail;
+	private JTextField jpsw;
 	private JTextField jrpsw;
 
 	/**
@@ -83,28 +84,13 @@ public class Registrati extends JFrame {
 	
 	public Registrati() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 249, 351);
+		setBounds(100, 100, 569, 429);
 		registrati = new JPanel();
 		registrati.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(registrati);
 		
 		JLabel lblNewLabel = new JLabel("Registrazione");
 		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 30));
-		
-		jnome = new JTextField();
-		jnome.setColumns(10);
-		
-		jcognome = new JTextField();
-		jcognome.setColumns(10);
-		
-		jcf = new JTextField();
-		jcf.setColumns(10);
-		
-		jemail = new JTextField();
-		jemail.setColumns(10);
-		
-		jpsw = new JTextField();
-		jpsw.setColumns(10);
 		
 		lblNewLabel_1 = new JLabel("Nome");
 		
@@ -147,75 +133,76 @@ public class Registrati extends JFrame {
 		});
 		
 		JLabel lblNewLabel_6 = new JLabel("Ripeti password");
+		SpringLayout sl_registrati = new SpringLayout();
+		sl_registrati.putConstraint(SpringLayout.WEST, lblNewLabel_6, 0, SpringLayout.WEST, registrati);
+		sl_registrati.putConstraint(SpringLayout.WEST, lblNewLabel_5, 0, SpringLayout.WEST, lblNewLabel_2);
+		sl_registrati.putConstraint(SpringLayout.EAST, lblNewLabel_5, -497, SpringLayout.EAST, registrati);
+		sl_registrati.putConstraint(SpringLayout.WEST, lblNewLabel_4, 0, SpringLayout.WEST, lblNewLabel_2);
+		sl_registrati.putConstraint(SpringLayout.NORTH, lblNewLabel_2, 12, SpringLayout.SOUTH, lblNewLabel_1);
+		sl_registrati.putConstraint(SpringLayout.SOUTH, lblNewLabel_2, -12, SpringLayout.NORTH, lblNewLabel_3);
+		sl_registrati.putConstraint(SpringLayout.WEST, lblNewLabel_3, 0, SpringLayout.WEST, lblNewLabel_2);
+		sl_registrati.putConstraint(SpringLayout.WEST, lblNewLabel_2, 0, SpringLayout.WEST, registrati);
+		sl_registrati.putConstraint(SpringLayout.WEST, lblNewLabel_1, 0, SpringLayout.WEST, registrati);
+		sl_registrati.putConstraint(SpringLayout.NORTH, lblNewLabel, 10, SpringLayout.NORTH, registrati);
+		sl_registrati.putConstraint(SpringLayout.WEST, lblNewLabel, 0, SpringLayout.WEST, registrati);
+		sl_registrati.putConstraint(SpringLayout.SOUTH, lblNewLabel, 53, SpringLayout.NORTH, registrati);
+		registrati.setLayout(sl_registrati);
+		
+		jnome = new JTextField();
+		sl_registrati.putConstraint(SpringLayout.EAST, btnNewButton, 0, SpringLayout.EAST, jnome);
+		sl_registrati.putConstraint(SpringLayout.WEST, jnome, 60, SpringLayout.EAST, lblNewLabel_1);
+		sl_registrati.putConstraint(SpringLayout.EAST, jnome, -290, SpringLayout.EAST, registrati);
+		sl_registrati.putConstraint(SpringLayout.NORTH, lblNewLabel_1, 3, SpringLayout.NORTH, jnome);
+		sl_registrati.putConstraint(SpringLayout.NORTH, jnome, 6, SpringLayout.SOUTH, lblNewLabel);
+		jnome.setColumns(10);
+		registrati.add(jnome);
+		registrati.add(lblNewLabel_2);
+		registrati.add(lblNewLabel_3);
+		registrati.add(lblNewLabel_4);
+		registrati.add(lblNewLabel_5);
+		registrati.add(lblNewLabel);
+		registrati.add(lblNewLabel_1);
+		registrati.add(btnNewButton);
+		registrati.add(lblNewLabel_6);
+		
+		jcognome = new JTextField();
+		sl_registrati.putConstraint(SpringLayout.NORTH, jcognome, 6, SpringLayout.SOUTH, jnome);
+		sl_registrati.putConstraint(SpringLayout.WEST, jcognome, 0, SpringLayout.WEST, jnome);
+		sl_registrati.putConstraint(SpringLayout.EAST, jcognome, 0, SpringLayout.EAST, jnome);
+		registrati.add(jcognome);
+		jcognome.setColumns(10);
+		
+		jcf = new JTextField();
+		sl_registrati.putConstraint(SpringLayout.NORTH, lblNewLabel_3, 3, SpringLayout.NORTH, jcf);
+		sl_registrati.putConstraint(SpringLayout.NORTH, jcf, 6, SpringLayout.SOUTH, jcognome);
+		sl_registrati.putConstraint(SpringLayout.WEST, jcf, 0, SpringLayout.WEST, jnome);
+		sl_registrati.putConstraint(SpringLayout.EAST, jcf, 166, SpringLayout.WEST, jnome);
+		registrati.add(jcf);
+		jcf.setColumns(10);
+		
+		jemail = new JTextField();
+		sl_registrati.putConstraint(SpringLayout.NORTH, lblNewLabel_4, 3, SpringLayout.NORTH, jemail);
+		sl_registrati.putConstraint(SpringLayout.NORTH, jemail, 6, SpringLayout.SOUTH, jcf);
+		sl_registrati.putConstraint(SpringLayout.WEST, jemail, 87, SpringLayout.WEST, registrati);
+		sl_registrati.putConstraint(SpringLayout.EAST, jemail, 0, SpringLayout.EAST, jnome);
+		registrati.add(jemail);
+		jemail.setColumns(10);
+		
+		jpsw = new JTextField();
+		sl_registrati.putConstraint(SpringLayout.NORTH, lblNewLabel_5, 3, SpringLayout.NORTH, jpsw);
+		sl_registrati.putConstraint(SpringLayout.NORTH, jpsw, 6, SpringLayout.SOUTH, jemail);
+		sl_registrati.putConstraint(SpringLayout.WEST, jpsw, 0, SpringLayout.WEST, jnome);
+		sl_registrati.putConstraint(SpringLayout.EAST, jpsw, 253, SpringLayout.WEST, registrati);
+		registrati.add(jpsw);
+		jpsw.setColumns(10);
 		
 		jrpsw = new JTextField();
+		sl_registrati.putConstraint(SpringLayout.NORTH, btnNewButton, 6, SpringLayout.SOUTH, jrpsw);
+		sl_registrati.putConstraint(SpringLayout.NORTH, lblNewLabel_6, 3, SpringLayout.NORTH, jrpsw);
+		sl_registrati.putConstraint(SpringLayout.NORTH, jrpsw, 6, SpringLayout.SOUTH, jpsw);
+		sl_registrati.putConstraint(SpringLayout.WEST, jrpsw, 0, SpringLayout.WEST, jnome);
+		sl_registrati.putConstraint(SpringLayout.EAST, jrpsw, -290, SpringLayout.EAST, registrati);
+		registrati.add(jrpsw);
 		jrpsw.setColumns(10);
-		GroupLayout gl_registrati = new GroupLayout(registrati);
-		gl_registrati.setHorizontalGroup(
-			gl_registrati.createParallelGroup(Alignment.TRAILING)
-				.addGroup(gl_registrati.createSequentialGroup()
-					.addContainerGap()
-					.addGroup(gl_registrati.createParallelGroup(Alignment.LEADING)
-						.addGroup(gl_registrati.createSequentialGroup()
-							.addGroup(gl_registrati.createParallelGroup(Alignment.LEADING)
-								.addGroup(gl_registrati.createSequentialGroup()
-									.addGroup(gl_registrati.createParallelGroup(Alignment.LEADING)
-										.addComponent(lblNewLabel_1)
-										.addComponent(lblNewLabel_2)
-										.addComponent(lblNewLabel_3)
-										.addComponent(lblNewLabel_4)
-										.addComponent(lblNewLabel_5))
-									.addPreferredGap(ComponentPlacement.RELATED, 46, Short.MAX_VALUE)
-									.addGroup(gl_registrati.createParallelGroup(Alignment.TRAILING)
-										.addComponent(jnome, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-										.addComponent(jcognome, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-										.addComponent(jcf, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-										.addComponent(jemail, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-										.addComponent(jpsw, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
-								.addComponent(lblNewLabel, GroupLayout.PREFERRED_SIZE, 178, GroupLayout.PREFERRED_SIZE))
-							.addContainerGap(35, Short.MAX_VALUE))
-						.addGroup(gl_registrati.createSequentialGroup()
-							.addGroup(gl_registrati.createParallelGroup(Alignment.TRAILING)
-								.addComponent(btnNewButton)
-								.addGroup(gl_registrati.createSequentialGroup()
-									.addComponent(lblNewLabel_6)
-									.addGap(18)
-									.addComponent(jrpsw, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
-							.addContainerGap())))
-		);
-		gl_registrati.setVerticalGroup(
-			gl_registrati.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_registrati.createSequentialGroup()
-					.addContainerGap()
-					.addComponent(lblNewLabel, GroupLayout.PREFERRED_SIZE, 43, GroupLayout.PREFERRED_SIZE)
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addGroup(gl_registrati.createParallelGroup(Alignment.BASELINE)
-						.addComponent(lblNewLabel_1)
-						.addComponent(jnome, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-					.addPreferredGap(ComponentPlacement.UNRELATED)
-					.addGroup(gl_registrati.createParallelGroup(Alignment.BASELINE)
-						.addComponent(lblNewLabel_2)
-						.addComponent(jcognome, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-					.addPreferredGap(ComponentPlacement.UNRELATED)
-					.addGroup(gl_registrati.createParallelGroup(Alignment.BASELINE)
-						.addComponent(lblNewLabel_3)
-						.addComponent(jcf, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-					.addPreferredGap(ComponentPlacement.UNRELATED)
-					.addGroup(gl_registrati.createParallelGroup(Alignment.BASELINE)
-						.addComponent(lblNewLabel_4)
-						.addComponent(jemail, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-					.addGap(15)
-					.addGroup(gl_registrati.createParallelGroup(Alignment.BASELINE)
-						.addComponent(lblNewLabel_5)
-						.addComponent(jpsw, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-					.addPreferredGap(ComponentPlacement.UNRELATED)
-					.addGroup(gl_registrati.createParallelGroup(Alignment.BASELINE)
-						.addComponent(lblNewLabel_6)
-						.addComponent(jrpsw, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-					.addPreferredGap(ComponentPlacement.RELATED, 29, Short.MAX_VALUE)
-					.addComponent(btnNewButton)
-					.addContainerGap())
-		);
-		registrati.setLayout(gl_registrati);
 	}
 }

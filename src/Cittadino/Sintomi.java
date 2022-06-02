@@ -32,7 +32,7 @@ public class Sintomi extends JFrame {
 
 	private JPanel contentPane;
 	private JTextField jnote;
-	private Map<String, String> Hvaccini = new HashMap<String, String>();
+	private static Map<String, String> Hvaccini = new HashMap<String, String>();
 	/**
 	 * Launch the application.
 	 */
@@ -105,7 +105,7 @@ public class Sintomi extends JFrame {
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				setVisible(false);
-				NuovoSintomo ns= new NuovoSintomo();
+				NuovoSintomo ns= new NuovoSintomo(idutente);
 				ns.setVisible(true);
 			}
 		});
@@ -135,40 +135,10 @@ public class Sintomi extends JFrame {
 		jnote = new JTextField();
 		sl_contentPane.putConstraint(SpringLayout.NORTH, jnote, 6, SpringLayout.SOUTH, jseverita);
 		sl_contentPane.putConstraint(SpringLayout.WEST, jnote, 0, SpringLayout.WEST, jsintomo);
+		sl_contentPane.putConstraint(SpringLayout.SOUTH, jnote, -56, SpringLayout.SOUTH, contentPane);
 		sl_contentPane.putConstraint(SpringLayout.EAST, jnote, 0, SpringLayout.EAST, btnNewButton);
 		contentPane.add(jnote);
 		jnote.setColumns(10);
-		
-		JButton btnNewButton_1 = new JButton("Aggiungi");
-		sl_contentPane.putConstraint(SpringLayout.SOUTH, jnote, -11, SpringLayout.NORTH, btnNewButton_1);
-		sl_contentPane.putConstraint(SpringLayout.SOUTH, btnNewButton_1, -22, SpringLayout.SOUTH, contentPane);
-		sl_contentPane.putConstraint(SpringLayout.EAST, btnNewButton_1, 0, SpringLayout.EAST, btnNewButton);
-		btnNewButton_1.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				int sintomo= jsintomo.getSelectedIndex();
-				sintomo++;
-				String severita=jseverita.getSelectedItem().toString();
-				String note=jnote.getText();
-				String idvacc="";
-				
-				 try {
-			        	
-			        	Connection conn = DriverManager.getConnection(url, username, password);
-			        	Statement stmt = conn.createStatement();
-			            
-			            String query = "INSERT INTO eventiavversi(idvacc, idevento, severita, note)"+
-			            		"VALUES ('"+idvacc+"', '"+sintomo+"', '"+severita+"','"+note+"')";
-
-			            stmt.executeUpdate(query);
-			            JOptionPane.showMessageDialog(null, "Registrazione avvenuta");
-			            conn.close();           
-				 } catch (SQLException e1) {
-			            JOptionPane.showMessageDialog(null, e1);
-			        }
-
-			}
-		});
-		contentPane.add(btnNewButton_1);
 		
 		JLabel lblNewLabel_4 = new JLabel("Vaccino");
 		sl_contentPane.putConstraint(SpringLayout.NORTH, lblNewLabel_4, 6, SpringLayout.SOUTH, lblNewLabel);
@@ -204,6 +174,39 @@ public class Sintomi extends JFrame {
         }
 		
 		contentPane.add(jvaccino);
+		
+		JButton btnNewButton_1 = new JButton("Aggiungi");		
+		btnNewButton_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				int sintomo= jsintomo.getSelectedIndex();
+				sintomo++;
+				String severita=jseverita.getSelectedItem().toString();
+				String note=jnote.getText();
+				String idvacc=Hvaccini.get(jvaccino.getSelectedItem().toString());			
+				 try {
+			        	
+			        	Connection conn = DriverManager.getConnection(url, username, password);
+			        	Statement stmt = conn.createStatement();
+			            
+			            String query = "INSERT INTO eventiavversi(idvacc, idevento, severita, note)"+
+			            		"VALUES ('"+idvacc+"', '"+sintomo+"', '"+severita+"','"+note+"')";
+
+			            stmt.executeUpdate(query);
+			            JOptionPane.showMessageDialog(null, "Registrazione avvenuta");
+			            conn.close();
+			            
+			            setVisible(false);
+			            Sintomi s= new Sintomi(idutente);
+			            s.setVisible(true);
+				 } catch (SQLException e1) {
+			            JOptionPane.showMessageDialog(null, e1);
+			        }
+
+			}
+		});
+		sl_contentPane.putConstraint(SpringLayout.SOUTH, btnNewButton_1, -10, SpringLayout.SOUTH, contentPane);
+		sl_contentPane.putConstraint(SpringLayout.EAST, btnNewButton_1, 0, SpringLayout.EAST, btnNewButton);
+		contentPane.add(btnNewButton_1);
 		
 	}
 }
