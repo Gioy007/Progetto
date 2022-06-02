@@ -6,6 +6,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 
 public class ServerCV {
 	
@@ -15,7 +16,7 @@ public class ServerCV {
 	private static String username = "eclipse";
 	private static String password = "1234";
 	
-//	private static ArrayList<ClientHandler> clients = new ArrayList<ClientHandler>;
+	private static ArrayList<ClientHandler> clients = new ArrayList<ClientHandler>();
 
 	/**
 	 * Launch the application.
@@ -27,17 +28,23 @@ public class ServerCV {
 			Connection conn = DriverManager.getConnection(url, username, password);
 			Statement stmt = conn.createStatement();
 		
-			
+			System.out.println("connesso");
 		}catch(SQLException e) {
 			System.out.print(e);
 		}
 		
-//		ServerSocket listener = new ServerSocket(PORT);
-//		while (true) {
-//			Socket client = listener.accept();
-//			ClientHandler clientThread = new ClientHandler(client);
-//			clients.add(clientThread);
-//		}
+		try {
+			ServerSocket listener = new ServerSocket(PORT);
+			while (true) {
+				Socket client = listener.accept();
+				ClientHandler clientThread = new ClientHandler(client);
+				clients.add(clientThread);
+				System.out.print("connesso");
+			}
+		}catch (Exception e) {
+			System.out.print(e);
+		}
+		
 		
 		
 	}
