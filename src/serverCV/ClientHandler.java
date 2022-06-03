@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
+import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
 
@@ -20,9 +21,7 @@ public class ClientHandler implements Runnable{
 		out = new PrintWriter(client.getOutputStream(), true);
 		
 	}
-	
-	@Override
-	public void run() {
+	public void run(Connection conn) {
 		try {
 			while(true) {
 				System.out.println("connessione stabilita con un client");
@@ -30,20 +29,18 @@ public class ClientHandler implements Runnable{
 				String[] requestArray = request.split(";");
 				
 				if(requestArray[0].equals("login")) {
-					String query = "SELECT admin "
-							+ "FROM cittadini "
-							+ "WHERE mail = " + requestArray[1] + " AND password = " + requestArray[2]; 
+					String query = "SELECT *"
+							+ "FROM utenti "
+							+ "WHERE email = '" + requestArray[1] + "' AND password = '" + requestArray[2]+"'"; 
 					
-					Statement statement = ServerCV.getConn().createStatement();
+					Statement statement = conn.createStatement();
 					ResultSet result = statement.executeQuery(query);
 					
-					while(result.next()) {
-						if(result.getBoolean(0)==true) {
-							//operatore
-						}else {
-							//cittadino
-						}
-					}
+					result.next();
+					System.out.println(result.getString("admin"));
+					System.out.println(result.getString("userid"));
+					out.println(result.getString("admin")+";"+result.getString("userid"));	
+					
 				}
 				else if(requestArray[0].equals("nuovoVaccinato")) {
 					
@@ -73,6 +70,11 @@ public class ClientHandler implements Runnable{
 		//mando la response con codice per dire quale finestra aprire(cittadini/operatori)
 		
 		//attendo nuove disposizioni
+		
+	}
+	@Override
+	public void run() {
+		// TODO Auto-generated method stub
 		
 	} 
 	

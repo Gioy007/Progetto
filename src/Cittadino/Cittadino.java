@@ -14,6 +14,9 @@ import java.awt.GridBagConstraints;
 import javax.swing.SpringLayout;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
+import java.io.IOException;
+import java.net.Socket;
+import java.net.UnknownHostException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -25,10 +28,12 @@ public class Cittadino {
 
 	private JFrame frame;
 
+
 	/**
 	 * Launch the application.
 	 */
 	public static void main(String[] args) {
+
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
@@ -39,6 +44,9 @@ public class Cittadino {
 				}
 			}
 		});
+		
+		
+		
 	}
 
 	/**
