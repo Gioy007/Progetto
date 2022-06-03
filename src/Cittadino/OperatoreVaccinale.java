@@ -248,11 +248,22 @@ public class OperatoreVaccinale extends javax.swing.JFrame {
     }
 	
     private void registaVaccinatoButtonActionPerformed(java.awt.event.ActionEvent evt) {                                                       
-        // TODO add your handling code here:
+        String s = "";
+        s+="nuovoCentroVaccinale;";
+        s+="INSERT INTO CentriVaccinali(Nome, Indirizzo, Tipologia) "
+        		+ "VALUES ('"+nomeTextField.getText()+"', '"+indirizzoTextField.getText()+" "+nCivicoTextField.getText()+"', '"+tipologiaComboBox.getSelectedItem()+"');";
+        		
     }                                                      
 
-    private void registraCVButtonActionPerformed(java.awt.event.ActionEvent evt) {                                                 
-        // TODO add your handling code here:
+    private void registraCVButtonActionPerformed(java.awt.event.ActionEvent evt) {     
+    	String s = "";
+    	s+="nuovoVaccinato;";
+    	String codiceVaccinazione = "";// da sistemare come è nel db
+    	String UserID ="";// da prendere  dal db [select]
+    	String IDCentroVaccinale =""; // da prendere dal db [select]
+    	s+="INSERT INTO Vaccinati(UserID, DataSomm, TipoVacc, IDCentroVacc) "
+        		+ "VALUES ('";
+        	
     }           
     public static void main(String args[]) {
         try {
