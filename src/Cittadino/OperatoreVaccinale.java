@@ -248,21 +248,23 @@ public class OperatoreVaccinale extends javax.swing.JFrame {
     }
 	
     private void registaVaccinatoButtonActionPerformed(java.awt.event.ActionEvent evt) {                                                       
-        String s = "";
-        s+="nuovoCentroVaccinale;";
-        s+="INSERT INTO CentriVaccinali(Nome, Indirizzo, Tipologia) "
-        		+ "VALUES ('"+nomeTextField.getText()+"', '"+indirizzoTextField.getText()+" "+nCivicoTextField.getText()+"', '"+tipologiaComboBox.getSelectedItem()+"');";
-        		
+
+    	String s = "";
+    	s+="nuovoVaccinato;";
+    	String codiceVaccinazione = "";// da sistemare come è nel db
+    	String UserID ="";// da prendere  dal db []
+    	String IDCentroVaccinale =""; // da prendere dal db [select]
+    	s+="INSERT INTO Vaccinati(UserID, DataSomm, TipoVacc, IDCentroVacc) "
+        		+ "VALUES ('";
     }                                                      
 
     private void registraCVButtonActionPerformed(java.awt.event.ActionEvent evt) {     
     	String s = "";
-    	s+="nuovoVaccinato;";
-    	String codiceVaccinazione = "";// da sistemare come è nel db
-    	String UserID ="";// da prendere  dal db [select]
-    	String IDCentroVaccinale =""; // da prendere dal db [select]
-    	s+="INSERT INTO Vaccinati(UserID, DataSomm, TipoVacc, IDCentroVacc) "
-        		+ "VALUES ('";
+        s+="nuovoCentroVaccinale;";
+        s+="INSERT INTO CentriVaccinali(Nome, Indirizzo, Tipologia) "
+        		+ "VALUES ('"+nomeTextField.getText()+"', '"+indirizzoTextField.getText()+" "+nCivicoTextField.getText()+"', '"+tipologiaComboBox.getSelectedItem()+"');";
+        
+    	
         	
     }           
     public static void main(String args[]) {
