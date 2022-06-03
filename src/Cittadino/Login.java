@@ -14,6 +14,10 @@ import javax.swing.JTextField;
 import javax.swing.JPasswordField;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.io.PrintStream;
+import java.net.Socket;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -26,6 +30,8 @@ public class Login extends JFrame {
 	private JPanel login;
 	private JPasswordField jpsw;
 	private JTextField jemail;
+	private static final String SERVER_IP = "127.0.0.1";
+	private static final int SERVER_PORT = 9090;
 
 	/**
 	 * Launch the application.
@@ -79,6 +85,7 @@ public class Login extends JFrame {
 		sl_login.putConstraint(SpringLayout.EAST, jpsw, -18, SpringLayout.EAST, login);
 		login.add(jpsw);
 		
+		
 		jemail = new JTextField();
 		sl_login.putConstraint(SpringLayout.WEST, jemail, 72, SpringLayout.EAST, lblNewLabel_1);
 		sl_login.putConstraint(SpringLayout.SOUTH, jemail, -12, SpringLayout.NORTH, jpsw);
@@ -86,37 +93,42 @@ public class Login extends JFrame {
 		login.add(jemail);
 		jemail.setColumns(10);
 		
+		jpsw.setText("c");
+		jemail.setText("c");
+		
 		JButton btnNewButton = new JButton("Login");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String email= jemail.getText();
-				String jpsw=jemail.getText();
+				String psw=String.valueOf(jpsw.getPassword());
 				
-				String url = "jdbc:postgresql://localhost:5432/CentriVaccinali";
-		        String username = "eclipse";
-		        String password = "1234";
+				try {
+					Socket socket = new Socket(SERVER_IP, SERVER_PORT);
+					String request="login;"+email+";"+psw;
+					PrintStream out = new PrintStream( socket.getOutputStream() );
+					BufferedReader in = new BufferedReader( new InputStreamReader( socket.getInputStream() ) );
 
-		        try {
-		        	
-		            Connection conn = DriverManager.getConnection(url, username, password);
-		            Statement stmt = conn.createStatement();
-		            String query="SELECT * FROM utenti WHERE email='"+email+"' and password='"+jpsw+"'";
-		            ResultSet rs = stmt.executeQuery(query);
-		            
-		            if(rs.isBeforeFirst()) {
-		            	rs.next();
-		            	String sintomi=rs.getString("userid");
-		            	setVisible(false);
-		            	Sintomi s=new Sintomi(sintomi);
+					
+					out.println(request);
+					
+					String response= in.readLine();
+					String[] risposta =response.split(";");					
+					
+					if(risposta[0].equals("t")) {
+						setVisible(false);
+		            	OperatoreVaccinale s=new OperatoreVaccinale();
 		            	s.setVisible(true);
-		            }
-		            else {
-		            	JOptionPane.showMessageDialog(null, "Email o password non corrette");
-		            }
-		            
-		        } catch (SQLException ex) {
-		            JOptionPane.showMessageDialog(null, ex);
-		        }
+					}
+					if(risposta[0].equals("f")) {
+		            	setVisible(false);
+		            	Sintomi s=new Sintomi(risposta[1]);
+		            	s.setVisible(true);
+					}
+					
+				} catch (Exception e1) {
+					e1.printStackTrace();
+				}
+
 			}
 		});
 		sl_login.putConstraint(SpringLayout.SOUTH, btnNewButton, -10, SpringLayout.SOUTH, login);
