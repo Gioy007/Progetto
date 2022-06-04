@@ -6,27 +6,40 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
 import java.sql.Connection;
+import java.sql.DriverManager;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
+
+import javax.swing.JOptionPane;
 
 public class ClientHandler implements Runnable{
 
 	private Socket client;
 	private BufferedReader in;
 	private PrintWriter out;
+	private String url = ""; //jdbc:postgresql://localhost:5432/CentriVaccinali
+	private String username = ""; //eclipse
+	private String password = ""; //1234
 	
-	public ClientHandler(Socket clientSocket) throws IOException {
+	private Connection conn;
+	
+	public ClientHandler(Socket clientSocket, String url, String username, String password) throws IOException {
 		this.client=clientSocket;
 		in = new BufferedReader(new InputStreamReader(client.getInputStream()));
 		out = new PrintWriter(client.getOutputStream(), true);
-		
+        this.url=url;
+        this.password=password;
+        this.username=username;
+
 	}
 	public void run(Connection conn) {
 		try {
+			System.out.println("connessione stabilita con un client");
 			while(true) {
-				System.out.println("connessione stabilita con un client");
+				
 				String request = in.readLine();
-				String[] requestArray = request.split(";");
+				String[] requestArray = request.split("#");
 				
 				if(requestArray[0].equals("login")) {
 					String query = "SELECT *"
@@ -43,33 +56,51 @@ public class ClientHandler implements Runnable{
 					
 				}
 				else if(requestArray[0].equals("nuovoVaccinato")) {
-					
+					connessioneDB();
+					Statement statement = conn.createStatement();
+					statement.executeUpdate(requestArray[1]);
+					conn.close();
 				}
 				else if(requestArray[0].equals("nuovoCentroVaccinale")) {
-					
+					connessioneDB();
+					Statement statement = conn.createStatement();
+					statement.executeUpdate(requestArray[1]);
+					conn.close();
 				}
 				else if(requestArray[0].equals("registratiACV")) {
-					
+					connessioneDB();
+					Statement statement = conn.createStatement();
+					statement.executeUpdate(requestArray[1]);
+					conn.close();
 				}
 				else if(requestArray[0].equals("cercaInfo")) {
+					connessioneDB();
+					Statement statement = conn.createStatement();
+					statement.executeQuery(requestArray[1]);
 					
+					
+					
+					conn.close();
 				}
 				else if(requestArray[0].equals("inserisciSegnalazione")) {
-					
+					connessioneDB();
+					Statement statement = conn.createStatement();
+					statement.executeUpdate(requestArray[1]);
+					conn.close();
 				}
 			}
 		}catch(Exception e) {
 			System.out.println(e);
 		}
 		
-		
-		//mi aspetto le credenziali per il login
-		
-		//controllo
-		
-		//mando la response con codice per dire quale finestra aprire(cittadini/operatori)
-		
-		//attendo nuove disposizioni
+	}
+
+	private void connessioneDB() throws SQLException {
+		try {
+			Connection conn = DriverManager.getConnection(url, username, password);
+		}catch(Exception e) {
+			System.out.println("errore di connessione al db");
+		}
 		
 	}
 	@Override

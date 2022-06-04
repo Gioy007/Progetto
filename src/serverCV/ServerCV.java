@@ -19,7 +19,7 @@ public class ServerCV extends javax.swing.JFrame {
 	
 	private static ArrayList<ClientHandler> clients = new ArrayList<ClientHandler>();
 	
-	private static Connection conn;
+	//private static Connection conn;
 
     public ServerCV() {
         initComponents();
@@ -50,6 +50,7 @@ public class ServerCV extends javax.swing.JFrame {
         passwordField.setText("1234");
 
         jButton1.setText("Connettiti");
+        
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 try {
@@ -133,10 +134,10 @@ public class ServerCV extends javax.swing.JFrame {
     }// </editor-fold>                        
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) throws SQLException {  
-        String url = "jdbc:postgresql://"+urlTextField.getText()+":5432/CentriVaccinali";
-        String username = adminTextField.getText();
-        String password = passwordField.getText();
-        
+        url = "jdbc:postgresql://"+urlTextField.getText()+":5432/CentriVaccinali";
+        username = adminTextField.getText();
+        password = passwordField.getText();
+         /*
         System.out.println("connessione in corso...");
         try {
         	conn = DriverManager.getConnection(url, username, password);   
@@ -145,9 +146,7 @@ public class ServerCV extends javax.swing.JFrame {
         	JOptionPane.showMessageDialog(jPanel, "Errore di input");
         	
         }
-    	 	
-    	System.out.println("connesso");
-    	JOptionPane.showMessageDialog(jPanel, "Connessione al database effettuata, rimango in attesa di connessioni...");
+    	*/	
     	urlTextField.setText("");
     	adminTextField.setText("");
     	passwordField.setText("");
@@ -180,7 +179,7 @@ public class ServerCV extends javax.swing.JFrame {
 			ServerSocket listener = new ServerSocket(PORT);
 			while (true) {
 				Socket client = listener.accept();
-				ClientHandler clientThread = new ClientHandler(client);
+				ClientHandler clientThread = new ClientHandler(client, url, username, password);
 				clients.add(clientThread);
 				clientThread.run(conn);
 			}
@@ -189,11 +188,12 @@ public class ServerCV extends javax.swing.JFrame {
 		}
 	
     }
-	
+	/*
 	public static Connection getConn() {
 		return conn;
 	}
-                
+    */    
+    
     private javax.swing.JLabel adminLabel;
     private javax.swing.JTextField adminTextField;
     private javax.swing.JButton jButton1;
