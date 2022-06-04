@@ -33,7 +33,9 @@ public class ServerCV extends javax.swing.JFrame {
         adminLabel = new javax.swing.JLabel();
         pswLabel = new javax.swing.JLabel();
         urlTextField = new javax.swing.JTextField();
+        urlTextField.setText("localhost");
         adminTextField = new javax.swing.JTextField();
+        adminTextField.setText("eclipse");
         passwordField = new javax.swing.JPasswordField();
         jButton1 = new javax.swing.JButton();
         label = new javax.swing.JLabel();
@@ -45,6 +47,7 @@ public class ServerCV extends javax.swing.JFrame {
         adminLabel.setText("Admin username");
 
         pswLabel.setText("Password");
+        passwordField.setText("1234");
 
         jButton1.setText("Connettiti");
         
@@ -178,7 +181,7 @@ public class ServerCV extends javax.swing.JFrame {
 				Socket client = listener.accept();
 				ClientHandler clientThread = new ClientHandler(client, url, username, password);
 				clients.add(clientThread);
-				clientThread.run();
+				clientThread.run(conn);
 			}
 		}catch (Exception e) {
 			System.out.print(e);

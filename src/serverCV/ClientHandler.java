@@ -33,9 +33,7 @@ public class ClientHandler implements Runnable{
         this.username=username;
 
 	}
-	
-	@Override
-	public void run() {
+	public void run(Connection conn) {
 		try {
 			System.out.println("connessione stabilita con un client");
 			while(true) {
@@ -44,23 +42,17 @@ public class ClientHandler implements Runnable{
 				String[] requestArray = request.split("#");
 				
 				if(requestArray[0].equals("login")) {
-					connessioneDB();
-					/*String query = "SELECT admin "
-							+ "FROM cittadini "
-							+ "WHERE mail = " + requestArray[1] + " AND password = " + requestArray[2]; 
-					*/
+					String query = "SELECT *"
+							+ "FROM utenti "
+							+ "WHERE email = '" + requestArray[1] + "' AND password = '" + requestArray[2]+"'"; 
+					
 					Statement statement = conn.createStatement();
-					ResultSet result = statement.executeQuery(requestArray[1]);
-					conn.close();
-					/*
-					while(result.next()) {
-						if(result.getBoolean(0)) 	{//true
-							//operatore
-							
-						}else {						//false
-							//cittadino
-						}
-					}*/
+					ResultSet result = statement.executeQuery(query);
+					
+					result.next();
+					System.out.println(result.getString("admin"));
+					System.out.println(result.getString("userid"));
+					out.println(result.getString("admin")+";"+result.getString("userid"));	
 					
 				}
 				else if(requestArray[0].equals("nuovoVaccinato")) {
@@ -109,6 +101,11 @@ public class ClientHandler implements Runnable{
 		}catch(Exception e) {
 			System.out.println("errore di connessione al db");
 		}
+		
+	}
+	@Override
+	public void run() {
+		// TODO Auto-generated method stub
 		
 	} 
 	
